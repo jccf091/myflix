@@ -6,8 +6,7 @@ class Video < ActiveRecord::Base
   has_many :reviews, -> { order('created_at DESC') }
   has_many :queue_items
   validates_presence_of :title, :description,
-                        :large_cover_image_url,
-                        :small_cover_image_url,
+                        :cover_image,
                         :category
   validates_uniqueness_of :title
   pg_search_scope :search,

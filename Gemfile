@@ -22,7 +22,7 @@ gem 'roadie-rails'
 
 gem 'sidekiq'
 gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
-
+gem 'carrierwave'
 
 group :development do
   gem 'pry'
