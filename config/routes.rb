@@ -7,9 +7,14 @@ Rails.application.routes.draw do
   post '/signin', to: 'sessions#create'
   get '/signout', to: 'sessions#destroy'
 
-  resources :videos do
+  resources :videos, only: [:index, :show] do
     resources :reviews, only: [:create]
   end
+
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+  end
+
   resources :categories, only: [:index, :show, :edit]
   resources :users, only: [:show, :create]
   get '/register', to: "users#new"

@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_action :require_signed_in_user
 
   def index
     keyword = params[:search].strip

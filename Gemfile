@@ -21,6 +21,7 @@ gem 'roadie-rails'
 #gem 'kaminari'
 
 gem 'sidekiq'
+gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 
 
 group :development do
@@ -51,5 +52,4 @@ group :production do
   gem 'rails_12factor'
   gem 'informant-rails'
   gem 'newrelic_rpm'
-  gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 end

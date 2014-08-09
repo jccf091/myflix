@@ -1,13 +1,14 @@
-
-def set_current_user()
-  current_user = Fabricate(:user)
-  session[:user_id] = current_user.id
+def set_current_user(user=nil)
+  session[:user_id] = ( user || Fabricate(:user) ).id
 end
 
-def get_current_user
+def set_admin_user(admin=nil)
+  session[:user_id] = ( admin || Fabricate(:admin) ).id
+end
+
+def current_user
   @current_user ||= User.find(session[:user_id])
 end
-
 
 def signin(a_user=nil)
   user = a_user || Fabricate(:user)

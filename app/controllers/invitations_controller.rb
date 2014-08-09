@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :signed_in_user
+  before_action :require_signed_in_user
 
   def new
     @invitation = Invitation.new
