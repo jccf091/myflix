@@ -16,7 +16,7 @@ class Admin::VideosController < AdminsController
 
   #justforfun
   def lazy_add
-    scraping_from_imdb_genre
+    ImageCoverWorker.perform_async(params[:genre_imdb_url], params[:category_id])
     flash[:success] = "Added."
 
     redirect_to admin_lazy_path
@@ -29,34 +29,4 @@ class Admin::VideosController < AdminsController
                                     :remote_cover_image_url)
     end
 
-    ###justforfun
-    def scraping_from_imdb_genre
-      links = MetaInspector.new(params[:genre_imdb_url]).internal_links
-
-      links.each do |link|
-        begin
-          unless link.to_s.include?("http://www.imdb.com/title")
-            puts "Skiping..."
-            next
-          end
-          page = MetaInspector.new(link, :timeout => 5)
-          next if page.nil?
-
-          if identify_moive(page)
-            video = Video.new(title: page.meta_tag["property"]["og:title"],
-                      description: page.description,
-                      category_id: params[:category_id])
-            video.remote_cover_image_url = page.image
-            video.save
-          end
-        rescue => e
-          e.message
-        end
-      end
-    end
-
-    def identify_moive(page)
-      return false if page.meta_tags["property"]["og:type"].nil?
-      page.meta_tags["property"]["og:type"][0].to_s == "video.movie"
-    end
 end

@@ -1,6 +1,8 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
   root to: "pages#welcome"
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get 'ui(/:action)', controller: 'ui'
   get '/signin', to: 'sessions#new'
