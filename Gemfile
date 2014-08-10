@@ -21,7 +21,14 @@ gem 'roadie-rails'
 #gem 'kaminari'
 
 gem 'sidekiq'
+gem 'sinatra', require: false
+gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
+gem 'carrierwave'
+gem "fog"
+gem "mini_magick"
+gem 'metainspector'
 
+gem 'paratrooper'
 
 group :development do
   gem 'pry'
@@ -30,7 +37,6 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "letter_opener"
-  gem 'paratrooper'
 end
 
 group :development, :test do
@@ -51,5 +57,4 @@ group :production do
   gem 'rails_12factor'
   gem 'informant-rails'
   gem 'newrelic_rpm'
-  gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 end

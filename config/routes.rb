@@ -1,15 +1,25 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
   root to: "pages#welcome"
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get 'ui(/:action)', controller: 'ui'
   get '/signin', to: 'sessions#new'
   post '/signin', to: 'sessions#create'
   get '/signout', to: 'sessions#destroy'
 
-  resources :videos do
+  resources :videos, only: [:index, :show] do
     resources :reviews, only: [:create]
   end
+
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+    get '/lazy', to: "videos#lazy" #justforfun
+    post '/lazy_add', to: "videos#lazy_add" #justforfun
+
+  end
+
   resources :categories, only: [:index, :show, :edit]
   resources :users, only: [:show, :create]
   get '/register', to: "users#new"
