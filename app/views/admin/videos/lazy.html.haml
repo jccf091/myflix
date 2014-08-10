@@ -3,6 +3,6 @@
     .row
       .col-md-10.col-md-offset-1
         = bootstrap_form_tag url: '/admin/lazy_add' do |f|
-          = f.text_field :video_imdb_url, lable: "IMDB url"
+          = f.text_field :genre_imdb_url, lable: "IMDB Genre url"
           = f.select :category_id, options_for_select(Category.all.map{|category| [category.name, category.id]})
           = f.submit "Add Video"

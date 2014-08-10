@@ -1,9 +1,9 @@
 %article.video
   .container
     .row
-      .video_large_cover.col-sm-7.col-sm-offset-1
-        %img(src="#{@video.large_cover_image_url}")
-      .video_info.col-sm-3
+      .video_large_cover.col-sm-6.col-sm-offset-1
+        %img(src="#{@video.cover_image.large_cover.url}")
+      .video_info.col-sm-4
         %header
           %h3= @video.title
           %span

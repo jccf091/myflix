@@ -21,11 +21,11 @@ class VideoCoverUploader < CarrierWave::Uploader::Base
   end
 
   version :large_cover do
-    process :resize_to_fill => [460, 700]
+    process :resize_to_fill => [472.5, 700] #1 : 0.675
   end
 
   version :small_cover do
-    process :resize_to_fill => [215, 330]
+    process :resize_to_fill => [202.5, 300] #1 : 0.675
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
