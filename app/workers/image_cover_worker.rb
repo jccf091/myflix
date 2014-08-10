@@ -8,7 +8,7 @@ class ImageCoverWorker
 
     links = MetaInspector.new(link).internal_links
 
-    links.each do |link|
+    links.reverse_each do |link|
       begin
         unless link.to_s.include?("http://www.imdb.com/title")
           print "Skiping..."
