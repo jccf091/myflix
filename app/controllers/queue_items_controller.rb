@@ -1,5 +1,5 @@
 class QueueItemsController < ApplicationController
-  before_action :signed_in_user
+  before_action :require_signed_in_user
 
   def index
     @queue_items = current_user.queue_items

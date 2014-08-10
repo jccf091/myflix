@@ -25,6 +25,13 @@ describe User do
     let(:object) { current_user }
   end
 
+  it "set admin false as default" do
+    expect(Fabricate(:user).admin?).to be false
+  end
+
+  it "user can be set as admin" do
+    expect(Fabricate(:user).toggle!(:admin)).to be true
+  end
   describe "#queued?(video)" do
 
     it "returns true when user queued the video" do

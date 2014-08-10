@@ -4,7 +4,6 @@ namespace :deploy do
   desc 'Deploy app in staging environment'
   task :staging do
     deployment = Paratrooper::Deploy.new("jccf-myflix-staging", tag: 'staging')
-
     deployment.deploy
   end
 

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :signed_in_user
+  before_action :require_signed_in_user
 
   def create
     @video = Video.find_by(token: params[:video_id])
