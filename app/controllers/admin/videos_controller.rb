@@ -6,6 +6,7 @@ class Admin::VideosController < AdminsController
 
   def create
     @video = Video.new(video_params)
+    binding.pry
     if @video.save
       flash[:success] = "A new video have been created."
       redirect_to new_admin_video_path
@@ -18,7 +19,6 @@ class Admin::VideosController < AdminsController
   def lazy_add
     ImageCoverWorker.perform_async(params[:genre_imdb_url], params[:category_id])
     flash[:success] = "Added."
-
     redirect_to admin_lazy_path
   end
 

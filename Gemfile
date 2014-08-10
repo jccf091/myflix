@@ -24,6 +24,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 gem 'carrierwave'
+gem "fog"
 gem "mini_magick"
 gem 'metainspector'
 

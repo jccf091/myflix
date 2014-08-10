@@ -16,8 +16,6 @@ class ImageCoverWorker
         end
         page = MetaInspector.new(link, :timeout => 5)
         next if page.nil?
-
-
         video = Video.new(title: page.meta_tag["property"]["og:title"],
                   description: page.description,
                   category_id: category_id)
