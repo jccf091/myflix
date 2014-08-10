@@ -2,7 +2,8 @@
   .container
     .row
       .col-md-10.col-md-offset-1
-        = bootstrap_form_for [:admin, @video], layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6" do |f|
+        = bootstrap_form_for([:admin, @video], :html => {:multipart => true},
+          layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f|
 
           %ul.nav.nav-tabs
             %li
@@ -14,16 +15,8 @@
             = f.text_field :title
             = f.select :category_id, options_for_select(Category.all.map{|category| [category.name, category.id]})
             = f.text_area :description, rows: 8
-            .form-group
-              %label.control-label.col-sm-3 Large Cover
-              .col-sm-6
-                %col.btn.btn-file
-                  %input.form-control(type="file")
-            .form-group
-              %label.control-label.col-sm-3 Small Cover
-              .col-sm-6
-                %col.btn.btn-file
-                  %input.form-control(type="file")
-
+            = f.file_field :cover_image, lable: "Image Cover"
+            = f.hidden_field :cover_image_cache
+            = f.text_field :remote_cover_image_url, lable: "Image Cover Url"
             = f.form_group do
               = f.submit "Add Video"

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :videos, only: [:new, :create]
+    get '/lazy', to: "videos#lazy" #justforfun
   end
 
   resources :categories, only: [:index, :show, :edit]

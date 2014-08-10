@@ -1,12 +1,15 @@
+require 'carrierwave/orm/activerecord'
+
 class Video < ActiveRecord::Base
   include PgSearch
   include Tokenify
+
+  mount_uploader :cover_image, VideoCoverUploader
 
   belongs_to :category
   has_many :reviews, -> { order('created_at DESC') }
   has_many :queue_items
   validates_presence_of :title, :description,
-                        :cover_image,
                         :category
   validates_uniqueness_of :title
   pg_search_scope :search,
