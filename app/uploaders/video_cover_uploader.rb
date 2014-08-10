@@ -7,7 +7,6 @@ class VideoCoverUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  #storage :file
   storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -16,8 +15,12 @@ class VideoCoverUploader < CarrierWave::Uploader::Base
     if Rails.env.production?
       "production/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else
-      "development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+      "development/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
+  end
+
+  def cache_dir
+    '/tmp/projectname-cache'
   end
 
   def extension_white_list

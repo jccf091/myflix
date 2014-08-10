@@ -27,6 +27,7 @@ gem 'carrierwave'
 gem "fog"
 gem "mini_magick"
 gem 'metainspector'
+gem 'paratrooper'
 
 group :development do
   gem 'pry'
@@ -35,7 +36,6 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "letter_opener"
-  gem 'paratrooper'
 end
 
 group :development, :test do
