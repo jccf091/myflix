@@ -27,6 +27,7 @@ gem 'carrierwave'
 gem "fog"
 gem "mini_magick"
 gem 'metainspector'
+
 gem 'paratrooper'
 
 group :development do
