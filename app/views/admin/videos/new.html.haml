@@ -17,6 +17,9 @@
             = f.text_area :description, rows: 8
             = f.file_field :cover_image, lable: "Image Cover"
             = f.hidden_field :cover_image_cache
-            = f.text_field :remote_cover_image_url, lable: "Image Cover Url"
+            = f.text_field :remote_cover_image_url, lable: "Or Image Cover Url"
+            = f.file_field :video_file, lable: "Video file"
+            = f.hidden_field :video_file_cache
+            = f.text_field :remote_video_file_url, lable: "Or Video File Url"
             = f.form_group do
               = f.submit "Add Video"

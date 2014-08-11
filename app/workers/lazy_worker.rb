@@ -1,10 +1,8 @@
-require "pry"
-
-class ImageCoverWorker
+class LazyWorker
   include Sidekiq::Worker
 
-  def perform(link, category_id)
-    puts 'Doing hard work'
+  def perform_lazy_work(link, category_id)
+    puts 'Doing all the lazy work'
 
     links = MetaInspector.new(link).internal_links
 
