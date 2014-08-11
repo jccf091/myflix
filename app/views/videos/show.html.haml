@@ -11,7 +11,8 @@
             = @video.display_overall_rating
         %p= @video.description
         .actions
-          %a.btn.btn-primary(href="#{@video.video_file.url}") Watch Now
+          - unless @video.video_file_processing
+            %a.btn.btn-primary(href="#{@video.video_file.url}") Watch Now
           = link_to "+ My Queue", queue_items_path(id: @video.id), method: :post, class:"btn btn-default" unless current_user.queued?(@video.id)
 
 %section.reviews.container

@@ -15,7 +15,7 @@ class VideoCoverUploader < CarrierWave::Uploader::Base
     if Rails.env.production?
       "production/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else
-      "development/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+      "development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
   end
 
