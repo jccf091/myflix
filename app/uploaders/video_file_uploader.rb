@@ -1,12 +1,13 @@
 # encoding: utf-8
 
-class VideoCoverUploader < CarrierWave::Uploader::Base
+class VideoFileUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
-
+  # include CarrierWave::MiniMagick
+  include ::CarrierWave::Backgrounder::Delay
   # Choose what kind of storage to use for this uploader:
+  #storage :file
   if Rails.env.production?
     storage :fog
   else
@@ -20,22 +21,6 @@ class VideoCoverUploader < CarrierWave::Uploader::Base
     else
       "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
-  end
-
-  def cache_dir
-    '/tmp/projectname-cache'
-  end
-
-  def extension_white_list
-    %w(jpg jpeg gif png)
-  end
-
-  version :large_cover do
-    process :resize_to_fill => [472.5, 700] #1 : 0.675
-  end
-
-  version :small_cover do
-    process :resize_to_fill => [202.5, 300] #1 : 0.675
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

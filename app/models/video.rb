@@ -5,6 +5,9 @@ class Video < ActiveRecord::Base
   include Tokenify
 
   mount_uploader :cover_image, VideoCoverUploader
+  
+  mount_uploader :video_file, VideoFileUploader
+  process_in_background :video_file, VideoFileWorker
 
   belongs_to :category
   has_many :reviews, -> { order('created_at DESC') }

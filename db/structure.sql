@@ -286,7 +286,9 @@ CREATE TABLE videos (
     category_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    token character varying(255)
+    token character varying(255),
+    video_file character varying(255),
+    video_file_processing boolean DEFAULT true
 );
 
 
@@ -458,4 +460,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140806105535');
 INSERT INTO schema_migrations (version) VALUES ('20140806122547');
 
 INSERT INTO schema_migrations (version) VALUES ('20140809100243');
+
+INSERT INTO schema_migrations (version) VALUES ('20140811044033');
+
+INSERT INTO schema_migrations (version) VALUES ('20140811060455');
 
