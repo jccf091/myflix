@@ -27,7 +27,7 @@ module StripeWrapper
     end
 
     def error_message
-      response.error_messagef
+      response.json_body[:error][:message]
     end
   end
 

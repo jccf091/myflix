@@ -18,7 +18,7 @@ gem "figaro"
 gem "titleize"
 gem 'roadie'
 gem 'roadie-rails'
-#gem 'kaminari'
+
 
 gem 'sidekiq'
 gem 'sinatra', require: false
@@ -51,6 +51,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'vcr'
+  gem 'webmock'
   gem 'shoulda-matchers', '2.6.0', require: false
   gem 'database_cleaner', '1.2.0'
 end
