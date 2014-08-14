@@ -25,6 +25,24 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       handle_invitation
+
+
+      token = params[:stripeToken]
+
+      charge = StripeWrapper::Charge.create(
+        :amount => 999,
+        :currency => "usd",
+        :card => token,
+        :description => "Forever Memebership Charge for #{@user.email}"
+      )
+      if charge.successful?
+        flash[:sucess] = "Thank you!"
+      else
+        flash[:warning] = charge.error_message
+        @user.destroy
+        render :new
+      end
+
       UserMailer.delay.welcome_email(@user)
       flash[:success] = "Welcome!"
       session[:user_id] = @user.id
@@ -68,6 +86,9 @@ class UsersController < ApplicationController
         invitation.inviter.follow(@user)
         invitation.update_column(:token, nil)
       end
-
     end
+
+    def handle_payment
+
+      end
 end

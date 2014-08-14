@@ -5,7 +5,7 @@ class Video < ActiveRecord::Base
   include Tokenify
 
   mount_uploader :cover_image, VideoCoverUploader
-  
+
   mount_uploader :video_file, VideoFileUploader
   process_in_background :video_file, VideoFileWorker
 
@@ -29,7 +29,6 @@ class Video < ActiveRecord::Base
                       :any_word => true
                     }
                   }
-
   def to_param
     token
   end

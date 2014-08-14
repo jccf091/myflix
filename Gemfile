@@ -28,8 +28,9 @@ gem 'carrierwave_backgrounder'
 gem "mini_magick"
 gem "fog"
 gem 'metainspector'
-
+gem 'video_info'
 gem 'paratrooper'
+gem "stripe"
 
 group :development do
   gem 'pry'

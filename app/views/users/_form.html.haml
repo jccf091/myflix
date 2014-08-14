@@ -9,4 +9,4 @@
   - if @invitation_token
     = hidden_field_tag :invitation_token, @invitation_token
   = f.form_group do
-    = f.submit 'Sign Up'
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['strip_public_key']}" data-amount="999" data-name="MyFlix Membership Charge" data-description="Forever Memebership($9.99)" data-currency="usd">  </script>
