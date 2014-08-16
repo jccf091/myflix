@@ -4,6 +4,7 @@ Fabricator(:user) do
   password { "00001111" }
   password_confirmation { "00001111" }
   admin { false }
+  lock { false }
   slug {}
 end
 

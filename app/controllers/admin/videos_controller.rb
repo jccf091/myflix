@@ -48,7 +48,6 @@ class Admin::VideosController < AdminsController
         VideoFileWorker.perform_async(video.id, params[:video][:remote_video_file_url])
       else
         video.video_file = params[:video][:video_file]
-        video.update!(video_file_processing: false)
       end
     end
 end

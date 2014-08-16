@@ -17,5 +17,8 @@ class UserMailer < ActionMailer::Base
     mail to: @invitation.recipient_email, subject: "Your friend invited you to join MyFlix!"
   end
 
-
+  def notify_payment_faild(user)
+    @user = user
+    mail to: @user.email, subject: "Payment failed."
+  end
 end

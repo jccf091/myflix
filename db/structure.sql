@@ -140,7 +140,9 @@ CREATE TABLE payments (
     id integer NOT NULL,
     user_id integer,
     amount integer,
-    reference_id character varying(255)
+    reference_id character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -283,7 +285,8 @@ CREATE TABLE users (
     slug character varying(255),
     token character varying(255),
     admin boolean DEFAULT false,
-    customer_token character varying(255)
+    customer_token character varying(255),
+    lock boolean DEFAULT false
 );
 
 
@@ -512,4 +515,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140811044033');
 INSERT INTO schema_migrations (version) VALUES ('20140816092402');
 
 INSERT INTO schema_migrations (version) VALUES ('20140816093218');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816111552');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816121942');
 

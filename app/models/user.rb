@@ -52,4 +52,12 @@ class User < ActiveRecord::Base
     self == user || self.following?(user)
   end
 
+  def lock!
+    update_attribute(:lock, true)
+  end
+
+  def unlock!
+    update_attribute(:lock, false)
+  end
+
 end

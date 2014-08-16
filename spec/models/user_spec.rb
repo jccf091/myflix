@@ -61,4 +61,19 @@ describe User do
       expect(current_user.following?(another_user)).to be false
     end
   end
+
+  describe "#lock!" do
+    it "lock a user" do
+      current_user.lock!
+      expect(current_user).to be_lock
+    end
+  end
+
+  describe "#unlock!" do
+    it "unlock a user" do
+      user = Fabricate(:user, lock: true)
+      user.unlock!
+      expect(user).not_to be_lock
+    end
+  end
 end

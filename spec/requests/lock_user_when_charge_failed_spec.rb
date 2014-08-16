@@ -1,84 +1,84 @@
 require 'spec_helper'
 
 describe "when charge failed" do
-  let(:event_date) {
+  let(:event_data) {
     {
-      "created": 1326853478,
-      "livemode": false,
-      "id": "evt_00000000000000",
-      "type": "charge.failed",
-      "object": "event",
-      "request": null,
-      "data": {
-        "object": {
-          "id": "ch_00000000000000",
-          "object": "charge",
-          "created": 1408185669,
-          "livemode": false,
-          "paid": false,
-          "amount": 999,
-          "currency": "usd",
-          "refunded": false,
-          "card": {
-            "id": "card_00000000000000",
-            "object": "card",
-            "last4": "4242",
-            "brand": "Visa",
-            "funding": "credit",
-            "exp_month": 11,
-            "exp_year": 2014,
-            "fingerprint": "BnWgnMI06u49t6Ml",
-            "country": "US",
-            "name": null,
-            "address_line1": null,
-            "address_line2": null,
-            "address_city": null,
-            "address_state": null,
-            "address_zip": null,
-            "address_country": null,
-            "cvc_check": "pass",
-            "address_line1_check": null,
-            "address_zip_check": null,
-            "customer": "cus_00000000000000"
+      "id" => "evt_14S5UcBy5M37OfcVukP234uy",
+      "created" => 1408189026,
+      "livemode" => false,
+      "type" => "charge.failed",
+      "data" => {
+        "object" => {
+          "id" => "ch_14S5UcBy5M37OfcV3JMqijFy",
+          "object" => "charge",
+          "created" => 1408189026,
+          "livemode" => false,
+          "paid" => false,
+          "amount" => 999,
+          "currency" => "usd",
+          "refunded" => false,
+          "card" => {
+            "id" => "card_14S5UABy5M37OfcVhc3zbTZG",
+            "object" => "card",
+            "last4" => "0341",
+            "brand" => "Visa",
+            "funding" => "credit",
+            "exp_month" => 8,
+            "exp_year" => 2019,
+            "fingerprint" => "Ja7kW8NQ9ZpRGSLf",
+            "country" => "US",
+            "name" => nil,
+            "address_line1" => nil,
+            "address_line2" => nil,
+            "address_city" => nil,
+            "address_state" => nil,
+            "address_zip" => nil,
+            "address_country" => nil,
+            "cvc_check" => "pass",
+            "address_line1_check" => nil,
+            "address_zip_check" => nil,
+            "customer" => "cus_4bHAdABDVkzikg"
           },
-          "captured": true,
-          "refunds": {
-            "object": "list",
-            "total_count": 0,
-            "has_more": false,
-            "url": "/v1/charges/ch_14S4cTBy5M37OfcV5o1vy45l/refunds",
-            "data": [
-
-            ]
+          "captured" => false,
+          "refunds" => {
+            "object" => "list",
+            "total_count" => 0,
+            "has_more" => false,
+            "url" => "/v1/charges/ch_14S5UcBy5M37OfcV3JMqijFy/refunds",
+            "data" => []
           },
-          "balance_transaction": "txn_00000000000000",
-          "failure_message": null,
-          "failure_code": null,
-          "amount_refunded": 0,
-          "customer": "cus_00000000000000",
-          "invoice": "in_00000000000000",
-          "description": null,
-          "dispute": null,
-          "metadata": {
-          },
-          "statement_description": null,
-          "receipt_email": null
+          "balance_transaction" => nil,
+          "failure_message" => "Your card was declined.",
+          "failure_code" => "card_declined",
+          "amount_refunded" => 0,
+          "customer" => "cus_4bHAdABDVkzikg",
+          "invoice" => nil,
+          "description" => "payment to failed",
+          "dispute" => nil,
+          "metadata" => {},
+          "statement_description" => nil,
+          "receipt_email" => nil
         }
-      }
+      },
+      "object" => "event",
+      "pending_webhooks" => 2,
+      "request" => "iar_4bI4RUd6MQek6y"
     }
   }
 
-  let!(:user) { Fabricate(:user, customer_token: "cus_4bGES1fshmhqnF") }
+  let!(:user) { Fabricate(:user, customer_token: "cus_4bHAdABDVkzikg") }
 
-  before { post stripe_event_path, event_data }
 
-  it "lock user" do
-    expect(user.lock?).to be true
+  after { ActionMailer::Base.deliveries.clear }
+
+  it "lock user", :vcr do
+    post stripe_event_path, event_data
+    expect(user.reload.lock?).to be true
   end
 
-  it "send a email to notify user" do
+  it "send a email to notify user", :vcr do
+    post stripe_event_path, event_data
     expect(ActionMailer::Base.deliveries).not_to be_empty
-
   end
 
 end

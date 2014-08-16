@@ -23,6 +23,6 @@
           %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
             %li
               = link_to "Account", "#"
-              = link_to "Plan and Billing", ''
+              = link_to "Plan and Billing", payment_path(current_user)
               = link_to "Sign Out", signout_path
               = link_to "Invite friends", new_invitation_path

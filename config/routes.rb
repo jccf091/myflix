@@ -45,4 +45,6 @@ Rails.application.routes.draw do
   get '/invalid_token', to: "pages#invalid_token"
 
   resources :invitations, only: [:new, :create]
+
+  resources :payments, only: [:show]
 end

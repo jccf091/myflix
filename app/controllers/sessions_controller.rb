@@ -8,9 +8,14 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      flash[:success] = "You've signed in."
-      redirect_to root_path
+      unless user.lock?
+        session[:user_id] = user.id
+        flash[:success] = "Welcome back, #{user.full_name}."
+        redirect_to videos_path
+      else
+        flash[:warning] = "Your account has been suspended, please contact the customer service." 
+        redirect_to root_path
+      end
     else
       flash[:danger] = "wrong email address or password"
       render :new

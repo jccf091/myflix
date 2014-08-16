@@ -8,9 +8,9 @@ StripeEvent.configure do |events|
                   reference_id: event.data.object.id)
   end
 
-  events.subscribe '' do |event|
-    user = User.find_by(customer_token: evnet.data.object.customer)
-    user.toggle!(:lock)
-    ActionMailer.delay.notify_payment_faild(user)
+  events.subscribe 'charge.failed' do |event|
+    user = User.find_by(customer_token: event.data.object.customer)
+    user.lock!
+    UserMailer.delay.notify_payment_faild(user)
   end
 end
