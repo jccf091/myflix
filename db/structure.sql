@@ -133,6 +133,37 @@ ALTER SEQUENCE invitations_id_seq OWNED BY invitations.id;
 
 
 --
+-- Name: payments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE payments (
+    id integer NOT NULL,
+    user_id integer,
+    amount integer,
+    reference_id character varying(255)
+);
+
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payments_id_seq OWNED BY payments.id;
+
+
+--
 -- Name: queue_items; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -251,7 +282,8 @@ CREATE TABLE users (
     updated_at timestamp without time zone,
     slug character varying(255),
     token character varying(255),
-    admin boolean DEFAULT false
+    admin boolean DEFAULT false,
+    customer_token character varying(255)
 );
 
 
@@ -328,6 +360,13 @@ ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY payments ALTER COLUMN id SET DEFAULT nextval('payments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY queue_items ALTER COLUMN id SET DEFAULT nextval('queue_items_id_seq'::regclass);
 
 
@@ -373,6 +412,14 @@ ALTER TABLE ONLY categories
 
 ALTER TABLE ONLY invitations
     ADD CONSTRAINT invitations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY payments
+    ADD CONSTRAINT payments_pkey PRIMARY KEY (id);
 
 
 --
@@ -461,4 +508,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140806122547');
 INSERT INTO schema_migrations (version) VALUES ('20140809100243');
 
 INSERT INTO schema_migrations (version) VALUES ('20140811044033');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816092402');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816093218');
 
