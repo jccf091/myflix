@@ -8,11 +8,10 @@
           %h3= @video.title
           %span
             Rating:
-            = @video.display_overall_rating
+            = @video.decorator.display_rating
         %p= @video.description
         .actions
-          - unless @video.video_file_processing
-            %a.btn.btn-primary(href="#{@video.video_file.url}") Watch Now
+          = link_to "Watch Now", @video.video_file.url, class:"btn btn-primary"
           = link_to "+ My Queue", queue_items_path(id: @video.id), method: :post, class:"btn btn-default" unless current_user.queued?(@video.id)
 
 %section.reviews.container

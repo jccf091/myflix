@@ -10,10 +10,11 @@ class Admin::VideosController < AdminsController
     @video.process_video_file_upload = true
     @video.attributes = video_params
 
-    upload_cover_image(@video)
-    upload_video_file(@video)
-    if @video.save
+    if @video.valid?
+      upload_cover_image(@video)
+      upload_video_file(@video)
       flash[:success] = "A new video have been created."
+      @video.save
       redirect_to new_admin_video_path
     else
       flash[:warning] = "fail to add video."

@@ -18,11 +18,10 @@ gem "figaro"
 gem "titleize"
 gem 'roadie'
 gem 'roadie-rails'
-
+gem 'masonry-rails'
 
 gem 'sidekiq'
 gem 'sinatra', require: false
-gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 gem 'carrierwave'
 gem 'carrierwave_backgrounder'
 gem "mini_magick"
@@ -53,8 +52,9 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '2.6.0', require: false
-  gem 'database_cleaner', '1.2.0'
+  gem 'database_cleaner', git: 'git@github.com:bmabey/database_cleaner.git'
 end
 
 group :production do

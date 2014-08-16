@@ -6,3 +6,9 @@
   %p.sign_in
     Have an account? Please
     = link_to "Sign In", signin_path
+  %br
+%nav#page-nav
+  %div.transitions-enabled.infinite-scroll.clearfix#videos-container
+    - @videos.each do |video|
+      .div.box
+        %img(src="#{video.cover_image.small_cover.url}")

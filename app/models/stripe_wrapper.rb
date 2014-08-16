@@ -9,14 +9,15 @@ module StripeWrapper
 
     def self.create(options={})
       StripeWrapper.set_api_key
+
       begin
-        response = Stripe::Charge.create(
+      response = Stripe::Charge.create(
           :amount => options[:amount],
           :currency => "usd",
           :card => options[:card],
           :description => options[:description]
         )
-        new(response, :success)
+      new(response, :success)
       rescue Stripe::CardError => e
         new(e, :error)
       end
