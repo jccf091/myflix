@@ -30,7 +30,7 @@ describe StripeWrapper::Charge do
       expect(charge.successful?).to be false
     end
 
-    it "contains error message", :vcr do
+    it "contains error message" do
       charge = StripeWrapper::Charge.create(amount: 300, card: token)
       expect(charge.error_message).to eq("Your card was declined.")
     end
