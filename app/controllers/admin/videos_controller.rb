@@ -10,10 +10,11 @@ class Admin::VideosController < AdminsController
     @video.process_video_file_upload = true
     @video.attributes = video_params
 
-    upload_cover_image(@video)
-    VideoFileWorker.perform_async(@video.id, params[:video][:remote_video_file_url])
-    if @video.save
+    if @video.valid?
+      upload_cover_image(@video)
+      upload_video_file(@video)
       flash[:success] = "A new video have been created."
+      @video.save
       redirect_to new_admin_video_path
     else
       flash[:warning] = "fail to add video."
@@ -23,7 +24,7 @@ class Admin::VideosController < AdminsController
 
   #justforfun
   def lazy_add
-    LazyWorker.perform_lazy_work_async(params[:genre_imdb_url], params[:category_id])
+    LazyWorker.perform_async(params[:genre_imdb_url], params[:category_id])
     flash[:success] = "Added."
     redirect_to admin_lazy_path
   end
@@ -42,5 +43,12 @@ class Admin::VideosController < AdminsController
       video.save
     end
 
-
+    def upload_video_file(video)
+      unless params[:video][:remote_video_file_url].blank?
+        VideoFileWorker.perform_async(video.id, params[:video][:remote_video_file_url])
+      else
+        video.video_file = params[:video][:video_file]
+        video.update!(video_file_processing: false)
+      end
+    end
 end

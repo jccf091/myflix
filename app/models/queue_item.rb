@@ -18,10 +18,6 @@ class QueueItem < ActiveRecord::Base
     category.name
   end
 
-  def display_rating
-    video.display_rating
-  end
-
   def rating
     review.rating if review
   end

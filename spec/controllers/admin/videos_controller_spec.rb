@@ -65,17 +65,14 @@ describe Admin::VideosController do
 
       it 'do not create a video record' do
         expect{
-          post :create, video: Fabricate.attributes_for(:video, category: nil)
+          post :create, video: Fabricate.attributes_for(:video, title:"")
         }.not_to change(Video, :count)
       end
 
       it 'renders a template :new' do
-        post :create, video: Fabricate.attributes_for(:video, category: nil)
+        post :create, video: Fabricate.attributes_for(:video, title: "")
         expect(response).to render_template :new
       end
     end
-
   end
-
-
 end

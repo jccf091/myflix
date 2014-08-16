@@ -62,78 +62,39 @@ describe UsersController do
 
   describe "POST create" do
 
-    context "valid attributes" do
+    context "successful user registration" do
 
-      before { post :create, user: Fabricate.attributes_for(:user) }
-      after { ActionMailer::Base.deliveries.clear }
-
-      it "creates a new user record" do
-        expect {
-          post :create, user: Fabricate.attributes_for(:user)
-        }.to change(User, :count).by(1)
+      before do
+        result = double(:result, successful?: true, user: Fabricate(:user))
+        UserRegistration.any_instance.should_receive(:registrate).and_return(result)
+        post :create, user: Fabricate.attributes_for(:user)
       end
 
       it "redirects to root path" do
-        post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to root_path
       end
 
-      it "sends out a email" do
-        expect(ActionMailer::Base.deliveries).not_to be_empty
-      end
-
-      it "sends to to right user" do
-        expect(ActionMailer::Base.deliveries.last.to).to eq([User.last.email])
-      end
-
-      context "with invitation_token" do
-        let(:inv) { Fabricate(:invitation, inviter_id: current_user.id) }
-        before { post :create, user: { full_name: inv.recipient_name, email: inv.recipient_email, password: "00001111",
-           password_confirmation:"00001111"}, invitation_token: inv.token }
-
-        it "creates a new user record" do
-          expect(User.last.email).to eq(inv.recipient_email)
-        end
-
-        it "inviter follow recipient" do
-          expect(current_user.following?(User.last)).to be true
-        end
-
-        it "inviter follow recipient" do
-          expect(User.last.following?(current_user)).to be true
-        end
-
-        it "expires the token with @use.save" do
-          expect(Invitation.first.token).to eq nil
-        end
+      it 'set the flash info' do
+        expect(flash[:success]).to be_present
       end
     end
 
-    context "invalid attributes" do
+    context "failed user registration" do
 
-      before { Fabricate(:user, email:"example@example.com") }
-      after { ActionMailer::Base.deliveries.clear }
-
-      it "dont create a new user record" do
-        expect {
-          post :create, user: Fabricate.attributes_for(:user, email: "example@example.com")
-        }.not_to change(User, :count)
+      before do
+        result = double(:result, successful?: false, error_message: "Error." )
+        expect_any_instance_of(UserRegistration).to receive(:registrate).and_return(result)
+        post :create, user: Fabricate.attributes_for(:user)
       end
-
-      it "dont send out email" do
-        expect(ActionMailer::Base.deliveries).to be_empty
-      end
-
-      before { post :create, user: Fabricate.attributes_for(:user, email: "example@example.com") }
 
       it "renders template :new" do
         expect(response).to render_template :new
       end
 
-      it "assigns @user" do
-        expect(assigns(:user)).to be_new_record
-        expect(assigns(:user)).to be_instance_of(User)
+      it "set error message" do
+        expect(flash[:warning]).to be_present
       end
+
     end
   end
 
@@ -157,20 +118,4 @@ describe UsersController do
   #   end
   # end
   #
-  # describe "GET following" do
-  #
-  #   before do
-  #     session[:user_id] = current_user.id
-  #     Fabricate(:relationship, follower: current_user, followed: another_user)
-  #     get :following
-  #   end
-  #
-  #   it "assigns @followed_users" do
-  #     expect(assigns(:followed_users)).to eq([another_user])
-  #   end
-  #
-  #   it "renders template :following" do
-  #     expect(response).to render_template :following
-  #   end
-  # end
 end

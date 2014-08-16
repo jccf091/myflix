@@ -5,7 +5,7 @@ class Video < ActiveRecord::Base
   include Tokenify
 
   mount_uploader :cover_image, VideoCoverUploader
-  
+
   mount_uploader :video_file, VideoFileUploader
   process_in_background :video_file, VideoFileWorker
 
@@ -15,6 +15,7 @@ class Video < ActiveRecord::Base
   validates_presence_of :title, :description,
                         :category
   validates_uniqueness_of :title
+
   pg_search_scope :search,
                   :against => [:title, :description],
                   :using => {
@@ -29,7 +30,6 @@ class Video < ActiveRecord::Base
                       :any_word => true
                     }
                   }
-
   def to_param
     token
   end
@@ -38,14 +38,7 @@ class Video < ActiveRecord::Base
     reviews.count
   end
 
-  def display_overall_rating
-    return "N/A" if reviews.empty?
-    cal_average_rating.to_s + "/5.0"
+  def decorator
+    VideoDecorator.new(self)
   end
-
-  private
-    def cal_average_rating
-      reviews.average(:rating).round(1)
-    end
-
 end
