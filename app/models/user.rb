@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower
 
   has_many :invitations, foreign_key: "inviter_id"
-
+  has_many :payments
 
   has_secure_password
 

@@ -30,6 +30,7 @@ gem 'metainspector'
 gem 'video_info'
 gem 'paratrooper'
 gem "stripe"
+gem 'stripe_event'
 
 group :development do
   gem 'pry'

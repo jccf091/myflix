@@ -14,12 +14,12 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.15.0
       Authorization:
-      - Bearer sk_test_4ZOzMjGJiS9U9eVyxk8kUcDD
+      - Bearer sk_test_GwATDaM0axGi5KZp5oNX4r1U
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.15.0","lang":"ruby","lang_version":"2.1.2 p95 (2014-05-08)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
-        jccf01 3.13.0-33-generic #58-Ubuntu SMP Tue Jul 29 16:45:05 UTC 2014 x86_64
+        jccf01 3.13.0-34-generic #60-Ubuntu SMP Wed Aug 13 15:45:27 UTC 2014 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Content-Length:
       - '81'
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 14 Aug 2014 06:51:51 GMT
+      - Sat, 16 Aug 2014 08:01:41 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
@@ -52,21 +52,21 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_14RI5TAXG4NFeDCmucntLLWR",
+          "id": "tok_14S289By5M37OfcViOzKsDie",
           "livemode": false,
-          "created": 1407999111,
+          "created": 1408176101,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_14RI5TAXG4NFeDCmyGazPMIm",
+            "id": "card_14S289By5M37OfcVjlVJH81C",
             "object": "card",
             "last4": "0002",
             "brand": "Visa",
             "funding": "credit",
             "exp_month": 8,
             "exp_year": 2015,
-            "fingerprint": "bVzze0T5dzosEawg",
+            "fingerprint": "YvnFtZR3IUGbQ8Ql",
             "country": "US",
             "name": null,
             "address_line1": null,
@@ -79,13 +79,13 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Thu, 14 Aug 2014 06:51:50 GMT
+  recorded_at: Sat, 16 Aug 2014 08:01:42 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: amount=300&currency=usd&card=tok_14RI5TAXG4NFeDCmucntLLWR
+      string: card=tok_14S289By5M37OfcViOzKsDie&plan=base&email=donato.green%40vonruedendare.name
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -94,15 +94,15 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.15.0
       Authorization:
-      - Bearer sk_test_4ZOzMjGJiS9U9eVyxk8kUcDD
+      - Bearer sk_test_GwATDaM0axGi5KZp5oNX4r1U
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.15.0","lang":"ruby","lang_version":"2.1.2 p95 (2014-05-08)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
-        jccf01 3.13.0-33-generic #58-Ubuntu SMP Tue Jul 29 16:45:05 UTC 2014 x86_64
+        jccf01 3.13.0-34-generic #60-Ubuntu SMP Wed Aug 13 15:45:27 UTC 2014 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Content-Length:
-      - '57'
+      - '83'
   response:
     status:
       code: 402
@@ -111,11 +111,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 14 Aug 2014 06:51:52 GMT
+      - Sat, 16 Aug 2014 08:01:42 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '162'
+      - '117'
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
@@ -135,10 +135,9 @@ http_interactions:
           "error": {
             "message": "Your card was declined.",
             "type": "card_error",
-            "code": "card_declined",
-            "charge": "ch_14RI5UAXG4NFeDCmytxfUfpo"
+            "code": "card_declined"
           }
         }
     http_version: 
-  recorded_at: Thu, 14 Aug 2014 06:51:51 GMT
+  recorded_at: Sat, 16 Aug 2014 08:01:43 GMT
 recorded_with: VCR 2.9.2

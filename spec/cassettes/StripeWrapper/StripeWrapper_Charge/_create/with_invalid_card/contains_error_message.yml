@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&card=tok_14RLr0AXG4NFeDCmdBEg2EVi&description=Forever%20Memebership%20Charge%20for%20example123%40example.com
+      string: card[number]=4000000000000002&card[exp_month]=8&card[exp_year]=2015&card[cvc]=314
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,15 +14,15 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.15.0
       Authorization:
-      - Bearer sk_test_4ZOzMjGJiS9U9eVyxk8kUcDD
+      - Bearer sk_test_GwATDaM0axGi5KZp5oNX4r1U
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.15.0","lang":"ruby","lang_version":"2.1.2 p95 (2014-05-08)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
-        jccf01 3.13.0-33-generic #58-Ubuntu SMP Tue Jul 29 16:45:05 UTC 2014 x86_64
+        jccf01 3.13.0-34-generic #60-Ubuntu SMP Wed Aug 13 15:45:27 UTC 2014 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Content-Length:
-      - '133'
+      - '81'
   response:
     status:
       code: 200
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 14 Aug 2014 10:53:43 GMT
+      - Sat, 16 Aug 2014 08:04:32 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '1249'
+      - '596'
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
@@ -52,23 +52,21 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_14RLrXAXG4NFeDCm3YRJHEb3",
-          "object": "charge",
-          "created": 1408013623,
+          "id": "tok_14S2AuBy5M37OfcVxGk7VlHN",
           "livemode": false,
-          "paid": true,
-          "amount": 999,
-          "currency": "usd",
-          "refunded": false,
+          "created": 1408176272,
+          "used": false,
+          "object": "token",
+          "type": "card",
           "card": {
-            "id": "card_14RLr0AXG4NFeDCmIC5aBPhs",
+            "id": "card_14S2AuBy5M37OfcVmAyJNOKc",
             "object": "card",
-            "last4": "4242",
+            "last4": "0002",
             "brand": "Visa",
             "funding": "credit",
-            "exp_month": 1,
-            "exp_year": 2016,
-            "fingerprint": "hbapDZYGJx4rA5BD",
+            "exp_month": 8,
+            "exp_year": 2015,
+            "fingerprint": "YvnFtZR3IUGbQ8Ql",
             "country": "US",
             "name": null,
             "address_line1": null,
@@ -77,39 +75,17 @@ http_interactions:
             "address_state": null,
             "address_zip": null,
             "address_country": null,
-            "cvc_check": "pass",
-            "address_line1_check": null,
-            "address_zip_check": null,
             "customer": null
-          },
-          "captured": true,
-          "refunds": {
-            "object": "list",
-            "total_count": 0,
-            "has_more": false,
-            "url": "/v1/charges/ch_14RLrXAXG4NFeDCm3YRJHEb3/refunds",
-            "data": []
-          },
-          "balance_transaction": "txn_14RLrXAXG4NFeDCmX6VJefBB",
-          "failure_message": null,
-          "failure_code": null,
-          "amount_refunded": 0,
-          "customer": null,
-          "invoice": null,
-          "description": "Forever Memebership Charge for example123@example.com",
-          "dispute": null,
-          "metadata": {},
-          "statement_description": null,
-          "receipt_email": null
+          }
         }
     http_version: 
-  recorded_at: Thu, 14 Aug 2014 10:53:42 GMT
+  recorded_at: Sat, 16 Aug 2014 08:04:33 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&card=tok_14RLr0AXG4NFeDCmdBEg2EVi&description=Forever%20Memebership%20Charge%20for%20example123%40example.com
+      string: amount=300&currency=usd&card=tok_14S2AuBy5M37OfcVxGk7VlHN
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -118,28 +94,28 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.15.0
       Authorization:
-      - Bearer sk_test_4ZOzMjGJiS9U9eVyxk8kUcDD
+      - Bearer sk_test_GwATDaM0axGi5KZp5oNX4r1U
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.15.0","lang":"ruby","lang_version":"2.1.2 p95 (2014-05-08)","platform":"x86_64-linux","publisher":"stripe","uname":"Linux
-        jccf01 3.13.0-33-generic #58-Ubuntu SMP Tue Jul 29 16:45:05 UTC 2014 x86_64
+        jccf01 3.13.0-34-generic #60-Ubuntu SMP Wed Aug 13 15:45:27 UTC 2014 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Content-Length:
-      - '133'
+      - '57'
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 402
+      message: Payment Required
     headers:
       Server:
       - nginx
       Date:
-      - Thu, 14 Aug 2014 10:53:52 GMT
+      - Sat, 16 Aug 2014 08:04:33 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '150'
+      - '162'
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
@@ -157,10 +133,12 @@ http_interactions:
       string: |
         {
           "error": {
-            "type": "invalid_request_error",
-            "message": "You cannot use a Stripe token more than once: tok_14RLr0AXG4NFeDCmdBEg2EVi"
+            "message": "Your card was declined.",
+            "type": "card_error",
+            "code": "card_declined",
+            "charge": "ch_14S2AvBy5M37OfcV5Ubt7n25"
           }
         }
     http_version: 
-  recorded_at: Thu, 14 Aug 2014 10:53:50 GMT
+  recorded_at: Sat, 16 Aug 2014 08:04:34 GMT
 recorded_with: VCR 2.9.2

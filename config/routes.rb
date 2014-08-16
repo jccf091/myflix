@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root to: "pages#welcome"
   mount Sidekiq::Web, at: '/sidekiq'
+  mount StripeEvent::Engine => '/stripe_events'
 
   get 'ui(/:action)', controller: 'ui'
   get '/signin', to: 'sessions#new'
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
     resources :videos, only: [:new, :create]
     get '/lazy', to: "videos#lazy" #justforfun
     post '/lazy_add', to: "videos#lazy_add" #justforfun
-
+    resources :payments, only: [:index]
   end
 
   resources :categories, only: [:index, :show, :edit]
