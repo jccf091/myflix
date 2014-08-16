@@ -1,10 +1,16 @@
 - @results.each do |result|
   %ul
-    %li
-      = link_to result do
-        %img(src="#{result.small_cover_image_url}")
-    %li
-      = result.title
-    %li
-      = result.description
+    %article.video
+      .container
+        .row
+          .video_large_cover.col-sm-3.col-sm-offset-3
+            %img(src="#{result.cover_image.small_cover.url}")
+          .video_info.col-sm-4
+            %header
+              %h3= result.title
+              %span
+                Rating:
+                = result.decorator.display_rating
+            %p= result.description
+
   %br
