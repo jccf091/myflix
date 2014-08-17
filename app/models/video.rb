@@ -1,7 +1,5 @@
 require 'carrierwave/orm/activerecord'
-
 class Video < ActiveRecord::Base
-  include PgSearch
   include Tokenify
 
   mount_uploader :cover_image, VideoCoverUploader
