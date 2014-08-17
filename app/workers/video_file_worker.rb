@@ -4,7 +4,6 @@ class VideoFileWorker < ::CarrierWave::Workers::ProcessAsset
     video = Video.find(video_id)
     video.remote_video_file_url = url
     video.save
-    video.update!(video_file_processing: false)
     puts "Done."
   end
 
