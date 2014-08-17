@@ -473,6 +473,20 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: videos_description; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX videos_description ON videos USING gin (to_tsvector('english'::regconfig, description));
+
+
+--
+-- Name: videos_title; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX videos_title ON videos USING gin (to_tsvector('english'::regconfig, (title)::text));
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -519,4 +533,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140816093218');
 INSERT INTO schema_migrations (version) VALUES ('20140816111552');
 
 INSERT INTO schema_migrations (version) VALUES ('20140816121942');
+
+INSERT INTO schema_migrations (version) VALUES ('20140817110842');
 

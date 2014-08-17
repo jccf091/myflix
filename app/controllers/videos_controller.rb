@@ -2,7 +2,7 @@ class VideosController < ApplicationController
   before_action :require_signed_in_user
 
   def index
-    @categories = Category.all
+    @categories = Category.first(30)
   end
 
   def show

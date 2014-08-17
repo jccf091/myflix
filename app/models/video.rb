@@ -16,20 +16,14 @@ class Video < ActiveRecord::Base
                         :category
   validates_uniqueness_of :title
 
-  pg_search_scope :search,
-                  :against => [:title, :description],
-                  :using => {
-                    :tsearch => {
-                      :prefix => true, :dictionary => "english", :any_word => true
-                    },
-                    :trigram => {
-                      :threshold => 0.5,
-                      :only => [:title]
-                    },
-                    :dmetaphone => {
-                      :any_word => true
-                    }
-                  }
+  def self.text_search(query)
+    rank = <<-RANK
+      ts_rank(to_tsvector(title), plainto_tsquery(#{sanitize(query)}))
+    RANK
+    where("to_tsvector('english', title) @@ :q or
+           to_tsvector('english', description) @@ :q", q: query).order("#{rank} desc")
+  end
+
   def to_param
     token
   end
