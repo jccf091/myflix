@@ -3,11 +3,11 @@ ruby "2.1.2"
 
 
 gem 'unicorn'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'sass-rails', '>= 3.2'
 gem 'coffee-rails'
 gem 'rails', '4.1.1'
 gem 'haml-rails'
-gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'

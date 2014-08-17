@@ -326,7 +326,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
-  bootstrap-sass
+  bootstrap-sass (~> 3.2.0)
   bootstrap_form
   capybara
   capybara-email
@@ -357,7 +357,7 @@ DEPENDENCIES
   roadie
   roadie-rails
   rspec-rails (= 2.99)
-  sass-rails
+  sass-rails (>= 3.2)
   selenium-webdriver
   shoulda-matchers (= 2.6.0)
   sidekiq

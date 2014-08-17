@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   include Tokenify
   sluggable_column :full_name
 
-  has_many :reviews, -> { order("created_at DESC")}
+  has_many :reviews, -> { order("created_at DESC")}, dependent: :destroy
   has_many :queue_items, -> { order("ranking") }
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
